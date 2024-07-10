@@ -10,13 +10,13 @@
     <div class="all">
         <div class="form-container">
             <div class="left">
-                <form class="form" action="/auth/register_user" method="post">
+                <form class="form" action="/auth/login_user" method="post">
                     <div class="input-block">
                         <input class="input" type="email" name="email" id="pass" required="">
                         <label for="pass">email</label>
                     </div>
                     <div class="input-block">
-                      <input class="input" type="text" name="User_type" id="pass" required="">
+                      <input class="input" type="text" name="user_type" id="pass" required="">
                       <label for="pass">As ...</label>
                   </div>
                   <div class="input-block">
@@ -24,7 +24,9 @@
                     <label for="pass">Password</label>
                 </div>
                     <div class="input-block">
-      <span class="forgot"><a href="/auth/register">Sign-Up</a></span>
+      <span class="forgot">Don't have an account? Please <a href="/auth/register">Sign-Up</a></span>
+      <span class="forgot">Login as <a href="/auth/staff_type">Staff member</a></span>
+
                     <button>Submit</button>
                 </div>
                 </form>

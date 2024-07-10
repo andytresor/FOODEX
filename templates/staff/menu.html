@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel= "stylesheet"  href= "{{ url_for('static',filename='styles/staff.css') }}">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    <div class="side-container">
+      <div class="sidebar">
+        <div class="menu-btn"><i class="ph-bold ph-caret-left"></i></div>
+        <div class="head">
+          <div class="user-img">
+            <img
+              src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTUzMjAyMTh8&ixlib=rb-4.0.3&q=85"
+              alt=""
+            />
+          </div>
+          <div class="user-details">
+            <p class="title">Servant</p>
+            <p class="name">Andy Tresors</p>
+          </div>
+        </div>
+        <div class="nav">
+          <div class="menu">
+            <p class="title">Main</p>
+            <ul>
+              <li>
+                <a href="/"
+                  ><i class="icon ph-bold ph-house-simple"></i
+                  ><span class="text">Home</span></a
+                >
+              </li>
+
+              <li class="active">
+                <a href="/menu/add_menu"
+                  ><i class="icon ph-bold ph-file-text"></i
+                  ><span class="text">create menu</span></a
+                >
+              </li>
+
+              <li>
+                <a href="/order/orders"
+                  ><i class="icon ph-bold ph-calendar-blank"></i
+                  ><span class="text">Orders</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="menu">
+            <p class="title">Settings</p>
+            <ul>
+              <li>
+                <a href="#"
+                  ><i class="icon ph-bold ph-gear"></i
+                  ><span class="text">Settings</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="menu">
+          <p class="title">Account</p>
+          <ul>
+            <li>
+              <a href="#"
+                ><i class="icon ph-bold ph-info"></i
+                ><span class="text">FAQ</span></a
+              >
+            </li>
+            <li>
+              <form action="/auth/logout" method="post">
+                <button type="submit">Logout</button>
+                
+                <!-- <a href="#"
+                  ><i class="icon ph-bold ph-sign-out"></i
+                  ><span class="text">Logout</span></a
+                > -->
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      {% for menu in menus %}
+      <div class="master-container">
+        <div class="card cart">
+          <label class="title">Your Menu</label>
+          <div class="products">
+            <div class="product">
+              <img src="static/imgs/{{ menu.img_name }}" alt="" width="80px" height="80px">
+ 
+              <div>
+                <span>{{ menu.menu_name }}</span>
+                <p>{{ menu.description }}</p>
+                <p>Price: {{menu.price}} FCFA</p>
+                
+              </div>
+              
+              <form action="/menu/add_to_cart/{{menu.menu_id}}" method="post">
+                <input type="hidden" name="_method" value="POST" />
+                
+                <button class="button" type="submit">
+                Add order
+                  <svg class="cartIcon" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+                 </button>
+                </form>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="card checkout">
+          <label class="title">Checkout</label>
+          <div class="details">
+            <span>Your cart subtotal:</span>
+            <span>47.99$</span>
+            <span>Discount through applied coupons:</span>
+            <span>3.99$</span>
+            <span>Shipping fees:</span>
+            <span>4.99$</span>
+          </div>
+          <div class="checkout--footer">
+            <label class="price"><sup>$</sup>57.99</label>
+            <button class="checkout-btn">Checkout</button>
+          </div>
+        </div> -->
+{% endfor %}
+
+      </div>
+    </div>
+
+    <script>
+      let value = 0;
+      function increment() {
+        value++;
+        updateOutput();
+      }
+
+      function decrement() {
+        value--;
+        updateOutput();
+      }
+
+      function updateOutput() {
+        document.getElementById("output-area").textContent = value;
+      }
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

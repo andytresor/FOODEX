@@ -16,17 +16,23 @@ def login_user():
      user = Auth.query.filter_by(email=email).first()
      if not user or not check_password_hash(user.password, password):
          return redirect('auth/login', message="invalid Credential!!")
-     if user.User_type != user_type:
+     if user.user_type != user_type:
          return redirect('auth/login', message="invalid Credential!!")
-     if user_type == "admin".toLowerCase():
+     if user_type == "admin":
          return redirect('/admin')
-     if user_type == "cook".toLowerCase():
+     staff = Staff.query.filter_by(email=email).first()
+     if not staff:
+         return redirect('/auth/login')
+     if staff.role != user_type:
+         return redirect('/auth/register', message="invalid Credential!!")
+     if user_type == "cook":
          return redirect('/staff/display')
-     if user_type == "servant".toLowerCase():
+     if user_type == "servant":
          return redirect('/staff')
      session['auth'] = {
         "id": user.user_id,
-        "username": user.user_name
+        "username": user.user_name,
+        "user_type": user.user_type
     }
      return redirect('/')
 
@@ -35,16 +41,17 @@ def staff_type():
 
 def login_staff():
      form = request.form
-     user_type = form['user_type']
+     email = form['email']
+     role = form['role']
      
-     user = Staff.query.filter_by(user_type=user_type).first()
-     if user.user_type != user_type:
+     user = Staff.query.filter_by(email=email).first()
+     if not user:
+         return redirect('auth/login', message="invalid Credential!!")
+     if user.role != role:
          return redirect('/auth/login', message="invalid Credential!!")
-     if user_type == "admin".toLowerCase():
-         return redirect('/admin')
-     if user_type == "cook".toLowerCase():
-         return redirect('/cook/display.html')
-     if user_type == "servant".toLowerCase():
+     if role == "cook":
+         return redirect('/staff/display')
+     if role == "servant":
          return redirect('/staff')
      session['auth'] = {
         "id": user.staff_id,
@@ -62,6 +69,7 @@ def register_user():
      form = request.form
      user_name = form['user_name']
      email = form['email']
+     user_type = 'admin'
      password = form['password']
      cpassword = form['cpassword']
 
@@ -72,7 +80,7 @@ def register_user():
      if user:
          return redirect('/auth/register', message="User with this email aready exists!!")
      
-     user = Auth(email=email, user_name=user_name, password=generate_password_hash(password))
+     user = Auth(email=email, user_name=user_name, password=generate_password_hash(password), user_type=user_type)
      db.session.add(user)
      db.session.commit()
      return redirect('/auth/login')
@@ -84,6 +92,6 @@ def register_user():
 def logout():
     if 'auth' in  session:
         session.pop('auth', None)
-    return redirect('/auth/login')
+    return redirect('/auth/staff_type')
 
 

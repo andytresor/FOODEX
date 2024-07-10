@@ -1,30 +1,38 @@
-from flask import render_template, request, redirect# type:ignore
+from flask import render_template, request, redirect, session# type:ignore
 from config import db
 from models.order import Order
 
-def index():
-    orders = Order.query.all()
-    return render_template('/staff/cart.html', title="Home Page", orders=orders)
+# def index():
+#     orders = Order.query.all()
+#     return render_template('/staff/cart.html', title="Home Page", orders=orders)
 
-def add_order():
-    return render_template('/create/create_order.html', title="Add Order")
+def cook():
+    orders = Order.query.all()
+    return render_template('/cook/display.html', title="Menu Page", orders=orders)
+
+def view_order():
+    user_id = session.get('id')  # Get user ID from session
+    orders = Order.query.filter_by(user_id=user_id).all()
+    return render_template('/staff/cart.html', orders=orders)
+
+
+def orders():
+    return render_template('/staff/cart.html', title="Add Order")
 
 # def view_order(id):
 #     orders = Order.query.get(id)
 #     return render_template('/view/staff.html', title="User Detail Page", orders=orders)
 
 def newOrder():
-    form = request.form
-    table_number = form['table_number']
-    menu_name = form['menu_name']
-    price = form['price']
-    description = form['description']
+    user_id = session.get('id')
+    menu_id = Order.query.filter_by(user_id=user_id).all()
+    
 
-    orders = Order(menu_name=menu_name, price=price, description=description, table_number=table_number)
+    orders = Order(user_id=user_id, menu_id=menu_id)
     db.session.add(orders)
     db.session.commit()
 
-    return redirect('/menu')
+    return redirect('/order/order')
 
 def delete_order(order_id):
     if request.method == 'POST':

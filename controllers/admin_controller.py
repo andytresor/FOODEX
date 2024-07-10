@@ -3,8 +3,9 @@ from config import db
 from models.admin import Admin
 
 def index():
-    admin = Admin.query.all()
-    return render_template('dashboard.html', title="Dashboard Page", admin=admin)
+    # admin = Admin.query.all()
+    return render_template('dashboard.html', title="Dashboard Page")
+
 
 # def add_admin():
 #     return render_template('dashboard.html', title="Add Admin")

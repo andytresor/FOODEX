@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Team Section with CSS Hover Effect by AbdulDev</title>
+    <!-- Custom CSS Link -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='styles/members.css') }}"
+    />
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="top-btn">
+        <a href="/staff/add_staff">Add Member</a>
+      </div>
+    <div class="conatainer">
+        <div class="box">
+        <img src="{{ url_for('static', filename='/imgs/team1.jpg') }}" />
+            <div class="info">
+                <h3>Harry</h3>
+                <span class="role">Web Designer</span>
+                <div class="share">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+        <img src="{{ url_for('static', filename='/imgs/team2.jpg') }}" />
+            <div class="info">
+                <h3>Melissa</h3>
+                <span class="role">Web Developer</span>
+                <div class="share">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+        <img src="{{ url_for('static', filename='/imgs/team1.jpg') }}" />
+            <div class="info">
+                <h3>Elena</h3>
+                <span class="role">Digital Marketer</span>
+                <div class="share">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+        {% for staff in staffs %}
+        <div class="box">
+            <img src="{{ url_for('static', filename='imgs/' + staff.img_name) }}"/>
+            <div class="info">
+                <h3>{{staff.name}}</h3>
+                <span class="role">{{staff.role}}</span>
+                <div class="share">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='styles/add_staff.css') }}"
+    />
+</head>
+<body>
+    <p class="form-title">Sign in to your account</p>
+    <div class="register">
+            <form class="form" action="/staff/create_staff" enctype="multipart/form-data"  method="post">
+               <div class="all">
+                <div class="bg-img">
+                    <input type="file" id="imageInput" name="img" />
+          <img id="previewImage" style="display: none" width="250px" />
+                  </div>
+             <div class="one">
+              <div class="input-container">
+                  <input type="email" placeholder="Enter email" name="email">
+                  <span>
+                  </span>
+              </div>
+              <div class="input-container">
+               <input type="text" placeholder="Enter Staff Name" name="name">
+               <span>
+               </span>
+           </div>
+           <div class="input-container">
+               <input type="text" placeholder="Role" name="role">
+               <span>
+               </span>
+           </div>
+           <div class="input-container">
+            <input type="text" placeholder="Salary" name="salary">
+            <span>
+            </span>
+        </div>
+              
+                 <button type="submit" class="submit">
+                add staff
+              </button>
+             </div>
+               </div>
+       </form>
+        
+       </div>
+       
+       <script>
+        const imageInput = document.getElementById('imageInput');
+        const previewImage = document.getElementById('previewImage');
+  
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const imageUrl = URL.createObjectURL(file);
+                previewImage.src = imageUrl;
+                previewImage.style.display = 'block';
+            }
+        });
+    </script>
+       
+</body>
+</html>

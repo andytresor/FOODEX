@@ -132,7 +132,7 @@ section{
 }
 
 .about{
-	background: url(../img/feature.svg);
+	background: url(../imgs/feature.svg);
 	background-size: cover;
 	background-position: center;
 	display: grid;
@@ -359,7 +359,7 @@ header.sticky{
 }
 
 .blog{
-	background: url(../img/blog.svg);
+	background: url(../imgs/blog.svg);
 	background-size: cover;
 	background-position: center left;
 }

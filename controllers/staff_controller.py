@@ -1,13 +1,18 @@
-from flask import render_template, request, redirect# type:ignore
+from flask import render_template, request, redirect
 from config import db
 from models.staff import Staff
+from werkzeug.utils import secure_filename
 
 def index():
     staffs = Staff.query.all()
     return render_template('/staff/menu.html', title="Home Page", staffs=staffs)
 
+def members():
+    staffs = Staff.query.all()
+    return render_template('members.html', title="Home Page", staffs=staffs)
+
 def add_staff():
-    return render_template('/staff/add_staff.html', title="Add Staff")
+    return render_template('/create/create_staff.html', title="Add Staff")
 
 def cook_index():
     return render_template('/cook/display.html', title="Add Staff")
@@ -18,12 +23,20 @@ def view_staff(id):
 
 def newStaff():
     form = request.form
+    img = request.files['img']
+    img.save(img.filename)
     name = form['name']
     email = form['email']
     salary = form['salary']
     role = form['role']
 
-    staff = Staff(name=name, email=email, salary=salary, role=role)
+    if not img:
+        return 'no pic upload'
+     
+    filename = secure_filename(img.filename)
+    mimetype = img.mimetype
+
+    staff = Staff(name=name, email=email, salary=salary, role=role, img=img.filename, img_name=filename, mimetype=mimetype)
     db.session.add(staff)
     db.session.commit()
 
