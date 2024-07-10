@@ -50,7 +50,7 @@ def login_staff():
      if user.role != role:
          return redirect('/auth/login', message="invalid Credential!!")
      if role == "cook":
-         return redirect('/staff/display')
+         return redirect('/order')
      if role == "servant":
          return redirect('/staff')
      session['auth'] = {

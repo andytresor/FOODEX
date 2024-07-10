@@ -14,8 +14,8 @@ def members():
 def add_staff():
     return render_template('/create/create_staff.html', title="Add Staff")
 
-def cook_index():
-    return render_template('/cook/display.html', title="Add Staff")
+# def cook_index():
+#     return render_template('/cook/display.html', title="Add Staff")
 
 def view_staff(id):
     staffs = Staff.query.get(id)
