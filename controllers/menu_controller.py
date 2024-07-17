@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect# type:ignore
+from flask import render_template, request, redirect, session# type:ignore
 from config import db
 from models.menu import Menu
 from models.order import Order
@@ -16,16 +16,20 @@ def index():
 def add_menu():
     return render_template('/create/create_menu.html', title="Add Menu")
 
+
 def view_menu(id):
     menus = Menu.query.get(id)
     return render_template('/view/menu_profile.html', title="User Detail Page", menus=menus)
 
 def add_to_cart(menu_id):
+    user_id = session.get('user_id')
+    if user_id is None:
+        return 'no users'
     menu = Menu.query.get(menu_id)
-    order = Order(menu=menu)
+    order = Order(menu=menu, user_id=user_id)
     db.session.add(order)
     db.session.commit()
-    return redirect('/', title="Menu Page")
+    return 'added'
 
 
 # def add_to_cart(menu_id):

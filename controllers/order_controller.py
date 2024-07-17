@@ -11,7 +11,7 @@ def cook():
     return render_template('/cook/display.html', title="Menu Page", orders=orders)
 
 def view_order():
-    user_id = session.get('id')  # Get user ID from session
+    user_id = session.get('user_id')  # Get user ID from session
     orders = Order.query.filter_by(user_id=user_id).all()
     return render_template('/staff/cart.html', orders=orders)
 
@@ -24,7 +24,7 @@ def orders():
 #     return render_template('/view/staff.html', title="User Detail Page", orders=orders)
 
 def newOrder():
-    user_id = session.get('id')
+    user_id = session.get('user_id')
     menu_id = Order.query.filter_by(user_id=user_id).all()
     
 

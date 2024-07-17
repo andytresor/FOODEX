@@ -1,17 +1,24 @@
-from flask import render_template, request, redirect# type:ignore
+from flask import render_template, request, redirect, session# type:ignore
 from config import db
-from models.admin import Admin
+from models.auth import Auth
 
 def index():
-    # admin = Admin.query.all()
-    return render_template('dashboard.html', title="Dashboard Page")
+    admins = Auth.query.all()
+    return render_template('dashboard.html', title="Dashboard Page", admins=admins)
 
+def profile():
+    getsession = session.get('auth')
+    userName = getsession.username
+    if userName is not None:
+        print(userName)
+    else:
+        print('user not found')
 
 # def add_admin():
 #     return render_template('dashboard.html', title="Add Admin")
 
 def view_admin(admin_id):
-    admin = Admin.query.get(admin_id)
+    admin = Auth.query.get(admin_id)
     return render_template('/view/admin_profile.html', title="Admin Detail Page", admin=admin)
 
 # def newAdmin():
@@ -26,7 +33,7 @@ def view_admin(admin_id):
 #     return redirect('/admin')
 
 def update_admin(admin_id):
-    admin = Admin.query.filter_by(admin_id = admin_id).first()
+    admin = Auth.query.filter_by(admin_id = admin_id).first()
     if admin is None:
         return redirect('/admin')
     if request.method == "GET":

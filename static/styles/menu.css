@@ -1,4 +1,10 @@
 /* menu */
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .form_container {
     width: 400px;
     background: linear-gradient(#212121, #212121) padding-box,

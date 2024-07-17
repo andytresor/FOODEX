@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel= "stylesheet"  href= "{{ url_for('static',filename='styles/cart_product.css') }}">
+
 </head>
 <body>
+    <div>All Orders</div>
     <table>
         <thead>
             <tr>
@@ -18,6 +21,15 @@
                 <tr>
                     <td>{{ order.menu.price }}</td>
                     <td>{{ order.menu.menu_name }}</td>
+                    <td>
+                        <form
+                          action="/order/delete/{{order.order_id}}"
+                          method="post"
+                        >
+                          <input type="hidden" name="_method" value="DELETE" />
+                          <button>Delete</button>
+                        </form>
+                      </td>
                 </tr>
             {% endfor %}
 

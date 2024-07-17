@@ -8,6 +8,7 @@ class Staff(db.Model):
     img_name = db.Column(db.Text, nullable = False)
     mimetype = db.Column(db.Text, nullable = False)
     email = db.Column(db.String(50), nullable = False)
+    password = db.Column(db.String(500), nullable = False)
     salary = db.Column(db.String(50), nullable = False)
     role = db.Column(db.String(50), nullable = False)
     created_at = db.Column(db.DateTime(timezone = True), default = func.now())

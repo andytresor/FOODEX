@@ -34,7 +34,7 @@
         <img src="{{ url_for('static', filename='/imgs/team2.jpg') }}" />
             <div class="info">
                 <h3>Melissa</h3>
-                <span class="role">Web Developer</span>
+                <span class="role">servant</span>
                 <div class="share">
                     <a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-instagram"></a>
@@ -47,7 +47,7 @@
         <img src="{{ url_for('static', filename='/imgs/team1.jpg') }}" />
             <div class="info">
                 <h3>Elena</h3>
-                <span class="role">Digital Marketer</span>
+                <span class="role">cook</span>
                 <div class="share">
                     <a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-instagram"></a>
@@ -58,7 +58,7 @@
         </div>
         {% for staff in staffs %}
         <div class="box">
-            <img src="{{ url_for('static', filename='imgs/' + staff.img_name) }}"/>
+            <img src="{{ url_for('static', filename='imgs/' + staff.img) }}"/>
             <div class="info">
                 <h3>{{staff.name}}</h3>
                 <span class="role">{{staff.role}}</span>

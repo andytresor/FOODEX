@@ -10,3 +10,4 @@ class Menu(db.Model):
     price = db.Column(db.String(50), nullable = False)
     description = db.Column(db.String(100), nullable = False)
     created_at = db.Column(db.DateTime(timezone = True), default = func.now())
+    

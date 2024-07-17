@@ -11,34 +11,37 @@
   </head>
   <body>
     <h1>Add Menu</h1>
-    <div class="form_container">
-      <form class="form" action="/menu/create_menu" enctype="multipart/form-data"  method="post">
-      <div class="img">
-          <input type="file" id="imageInput" name="img" />
-          <img id="previewImage" style="display: none" width="250px" />
-        </div>
-        <div class="form-group">
-          <label for="text">Menu Name</label>
-          <input type="text" id="email" name="menu_name" required="" />
-        </div>
-        <div class="form-group">
-          <label for="text">Price</label>
-          <input type="text" id="email" name="price" required="" />
-        </div>
-        <div class="form-group">
-          <label for="textarea">Description</label>
-          <textarea
-            name="description"
-            id="textarea"
-            rows="10"
-            cols="50"
-            required=""
-          >
-          </textarea>
-        </div>
-        <button class="form-submit-btn" type="submit">Submit</button>
-      </form>
+    <div class="menu">
+      <div class="form_container">
+        <form class="form" action="/menu/create_menu" enctype="multipart/form-data"  method="post">
+        <div class="img">
+            <input type="file" id="imageInput" name="img" />
+            <img id="previewImage" style="display: none" width="250px" />
+          </div>
+          <div class="form-group">
+            <label for="text">Menu Name</label>
+            <input type="text" id="email" name="menu_name" required="" />
+          </div>
+          <div class="form-group">
+            <label for="text">Price</label>
+            <input type="text" id="email" name="price" required="" />
+          </div>
+          <div class="form-group">
+            <label for="textarea">Description</label>
+            <textarea
+              name="description"
+              id="textarea"
+              rows="10"
+              cols="50"
+              required=""
+            >
+            </textarea>
+          </div>
+          <button class="form-submit-btn" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
+
 
     <script>
       const imageInput = document.getElementById('imageInput');

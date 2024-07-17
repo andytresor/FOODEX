@@ -11,6 +11,10 @@ def members():
     staffs = Staff.query.all()
     return render_template('members.html', title="Home Page", staffs=staffs)
 
+def membersTwo():
+    staffs = Staff.query.all()
+    return render_template('dashboard.html', title="Home Page", staffs=staffs)
+
 def add_staff():
     return render_template('/create/create_staff.html', title="Add Staff")
 
@@ -27,6 +31,7 @@ def newStaff():
     img.save(img.filename)
     name = form['name']
     email = form['email']
+    password = form['password']
     salary = form['salary']
     role = form['role']
 
@@ -36,7 +41,7 @@ def newStaff():
     filename = secure_filename(img.filename)
     mimetype = img.mimetype
 
-    staff = Staff(name=name, email=email, salary=salary, role=role, img=img.filename, img_name=filename, mimetype=mimetype)
+    staff = Staff(name=name, password=password, email=email, salary=salary, role=role, img=img.filename, img_name=filename, mimetype=mimetype)
     db.session.add(staff)
     db.session.commit()
 
