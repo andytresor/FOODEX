@@ -30,15 +30,17 @@ def login_user():
          return redirect('/auth/login')
      if staff.role != user_type:
          return redirect('/auth/register', message="invalid Credential!!")
-     if user_type == "cook":
-         return redirect('/staff/display')
-     if user_type == "servant":
-         return redirect('/staff')
+     
      session['auth'] = {
         "id": user.user_id,
         "username": user.user_name,
         "user_type": user.user_type
     }
+     if user_type == "cook":
+         return redirect('/staff/display')
+     
+     if user_type == "servant":
+         return redirect('/staff')
      return redirect('/')
 
 def staff_type():
@@ -61,18 +63,19 @@ def login_staff():
         return redirect(url_for('auth.login', message="Invalid UserType!"))
     
     # Store user information in the session
-    session['user_id'] = staff.staff_id
-    session['staffname'] = staff.name
-    print(f"Session set: user_id={session['user_id']}, staffname={session['staffname']}")
+    session['staff_id'] = staff.staff_id
+    session['staff_name']= staff.name
+    session['role']= staff.role
+    
+    
+    print(f"Session set: staff_id={session['staff_id']}")
     
     if role == "cook":
-         return redirect('/order')
+         return redirect(url_for('staff.cook_page', message="Welcome"))
     
     if role == "servant":
-         return redirect('/menu')
+         return redirect(url_for('menu.index', message="Welcome"))
     
-
-
     return redirect(url_for('index'))   
      
 

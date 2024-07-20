@@ -22,24 +22,14 @@ def view_menu(id):
     return render_template('/view/menu_profile.html', title="User Detail Page", menus=menus)
 
 def add_to_cart(menu_id):
-    user_id = session.get('user_id')
+    user_id = session.get('staff_id')
     if user_id is None:
-        return 'no users'
+        return 'no user'
     menu = Menu.query.get(menu_id)
     order = Order(menu=menu, user_id=user_id)
     db.session.add(order)
     db.session.commit()
     return 'added'
-
-
-# def add_to_cart(menu_id):
-#     menu = Menu.query.get(menu_id)
-#     menu_item = Order(menu=menu)
-
-#     db.session.add(menu_item)
-#     db.session.commit()
-
-#     return jsonify({'message': 'Product added to cart successfully'})
 
 def newMenu():
     form = request.form

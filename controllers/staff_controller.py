@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 from config import db
 from models.staff import Staff
 from werkzeug.utils import secure_filename
@@ -17,6 +17,7 @@ def membersTwo():
 
 def add_staff():
     return render_template('/create/create_staff.html', title="Add Staff")
+
 
 # def cook_index():
 #     return render_template('/cook/display.html', title="Add Staff")
@@ -75,3 +76,12 @@ def update_staff(staff_id):
         db.session.commit()
         return redirect('/admin')
     return render_template('/update/modify_staff.html', title="Update Page", staffs=staffs)
+
+def logout():
+    if 'staff_id' in  session:
+        session.pop('staff_id', None)
+    if 'staff_name' in  session:
+        session.pop('staff_name', None)
+    if 'role' in  session:
+        session.pop('role', None)
+    return redirect('/auth/staff_type')
