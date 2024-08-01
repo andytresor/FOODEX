@@ -66,6 +66,7 @@ def login_staff():
     session['staff_id'] = staff.staff_id
     session['staff_name']= staff.name
     session['role']= staff.role
+    session['img']= staff.img_name
     
     
     print(f"Session set: staff_id={session['staff_id']}")

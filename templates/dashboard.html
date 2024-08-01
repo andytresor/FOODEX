@@ -159,13 +159,13 @@
                 </tr>
               </thead>
               <tbody>
-                {% for staff in staffs %}
+                {% for member in members %}
                 <tr>
                   <td>
             <img src="{{ url_for('static', filename='imgs/' + staff.img_name) }}"/>
-                    <p>>{{staff.name}}</p>
+                    <p>>{{member.name}}</p>
                   </td>
-                  <td>{{staff.email}}</td>
+                  <td>{{member.email}}</td>
                   <td><span class="status completed"> <form action="/staff/delete/{{staff.staff_id}}" method="post">
                     <input type="hidden" name="_method" value="DELETE" />
                     <button>Delete</button>

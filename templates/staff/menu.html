@@ -14,7 +14,8 @@
         <div class="head">
           <div class="user-img">
             {% for staff in staffs %}
-            <img src="static/imgs/{{ staff.img_name }}" alt="" width="250px">
+            <img src="{{ url_for('static', filename='imgs/' + staff.img_name) }}"/>
+            
             {% endfor %}
           </div>
           <div class="user-details">

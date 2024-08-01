@@ -7,7 +7,7 @@ class Menu(db.Model):
     img_name = db.Column(db.Text, nullable = False)
     mimetype = db.Column(db.Text, nullable = False)
     menu_name = db.Column(db.String(100), nullable = False)
-    price = db.Column(db.String(50), nullable = False)
+    price = db.Column(db.Integer, nullable = False)
     description = db.Column(db.String(100), nullable = False)
     created_at = db.Column(db.DateTime(timezone = True), default = func.now())
     

@@ -20,7 +20,7 @@
           <div class="head">
             <div class="user-img">
               <img
-                src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTUzMjAyMTh8&ixlib=rb-4.0.3&q=85"
+                src="{{session.img}}"
                 alt=""
               />
             </div>
@@ -83,32 +83,33 @@
           </div>
         </div>
         <div class="cart">
-            <h2 class="cart-title"></h2>
-            <div class="cart-content">
-                {% for order in orders %}
+          <h2 class="cart-title">All Commands</h2>
+          <div class="cart-content">
+            {% for order in orders %}
+            <form action="/command/create_command" method="post">
                 <div class="cart-box">
-              <img src="static/imgs/{{ order.menu.img_name }}" alt="" class="cart-img">
+              <!-- <img src="static/imgs/{{ order.menu.img_name }}" alt="" class="cart-img"> -->
+            <img src="{{ url_for('static', filename='imgs/' + order.menu.img_name) }}" class="cart-img"/>
+
                     <div class="detail-box">
                         <div class="cart-product-title">{{ order.menu.menu_name }}</div>
                         <div class="cart-price">{{ order.menu.price }} FCFA</div>
-                        <input type="number" value="1" class="cart-quantity" name="qty">
+                        <input type="number" value="1" class="cart-quantity" name="qty_{{ order.order_id }}" required="">
                     </div>
                     
-                    <form action="/order/delete/{{order.order_id}}" method="post">
-                        <input type="hidden" name="_method" value="DELETE" />
-                        <button class="btn-buy">Delete</button>
-                      </form>
+                    
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn-buy">Order Now</button>
+              </form>
+                <div class="total">
+                   <div class="total-title">Total</div>
+                   <div class="total-price">0 FCFA</div>
                 </div>
-                {% endfor %}
+                <!-- cart close -->
+                 <i class="bx bx-x" id="close-cart"></i>
             </div>
             <!-- total -->
-             <div class="total">
-                <div class="total-title">Total</div>
-                <div class="total-price">0 FCFA</div>
-             </div>
-             <button type="submit" class="btn-buy">Order Now</button>
-             <!-- cart close -->
-              <i class="bx bx-x" id="close-cart"></i>
         </div>
       </div>
 </body>

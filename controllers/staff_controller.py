@@ -12,8 +12,8 @@ def members():
     return render_template('members.html', title="Home Page", staffs=staffs)
 
 def membersTwo():
-    staffs = Staff.query.all()
-    return render_template('dashboard.html', title="Home Page", staffs=staffs)
+    members = Staff.query.all()
+    return render_template('dashboard.html', title="Home Page", members=members)
 
 def add_staff():
     return render_template('/create/create_staff.html', title="Add Staff")
@@ -84,4 +84,6 @@ def logout():
         session.pop('staff_name', None)
     if 'role' in  session:
         session.pop('role', None)
+    if 'img' in  session:
+        session.pop('img', None)
     return redirect('/auth/staff_type')
