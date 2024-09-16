@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, session# type:ignore
+from flask import jsonify, render_template, request, redirect, session# type:ignore
 from config import db
 from models.menu import Menu
 from models.order import Order
@@ -24,12 +24,22 @@ def view_menu(id):
 def add_to_cart(menu_id):
     user_id = session.get('staff_id')
     if user_id is None:
-        return 'no user'
+        return jsonify(message='No user'), 401
+
     menu = Menu.query.get(menu_id)
-    order = Order(menu=menu, user_id=user_id)
-    db.session.add(order)
+    if not menu:
+        return jsonify(message='Product Not Added'), 404
+
+    # Check if the product is already in the cart
+    existing_order = Order.query.filter_by(user_id=user_id, menu_id=menu_id).first()
+    if existing_order:
+        existing_order.quantity += 1
+    else:
+        new_order = Order(menu_id=menu_id, user_id=user_id, quantity=1)
+        db.session.add(new_order)
+
     db.session.commit()
-    return 'added'
+    return jsonify(message="Product Successfully Added")
 
 def newMenu():
     form = request.form

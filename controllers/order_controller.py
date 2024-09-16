@@ -2,14 +2,18 @@ from flask import render_template, request, redirect, session# type:ignore
 from config import db
 from models.order import Order
 
+
 def index():
     orders = Order.query.all()
+    print(orders)
     return render_template('/staff/cart.html', title="Home Page", orders=orders)
 
 def view_order():
     user_id = session.get('staff_id')  # Get user ID from session
     orders = Order.query.filter_by(user_id=user_id).all()
-    return render_template('/staff/cart.html', orders=orders)
+    cart_count = db.session.query(db.func.sum(Order.order_id)).scalar() or 0
+    print(cart_count)
+    return render_template('/staff/cart.html', orders=orders, cart_count=cart_count)
 
 
 def orders():

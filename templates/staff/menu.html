@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.boostrapcdn.com/boostrap/4.5.2/css/boostrap.min.css">
     <link rel= "stylesheet"  href= "{{ url_for('static',filename='styles/staff.css') }}">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
@@ -44,7 +45,8 @@
               <li>
                 <a href="/order/view_order"
                   ><i class="icon ph-bold ph-calendar-blank"></i
-                  ><span class="text">Orders</span></a
+                  ><span class="text">Orders {{ cart_count }}</span>
+                  <span id="cart-count">0</span></a
                 >
               </li>
             </ul>
@@ -84,11 +86,11 @@
         </div>
       </div>
       
-      {% for menu in menus %}
       <div class="master-container">
         <div class="card cart">
           <label class="title">Your Menu</label>
           <div class="products">
+            {% for menu in menus %}
             <div class="product">
               <img src="static/imgs/{{ menu.img_name }}" alt="" width="80px" height="80px">
  
@@ -96,23 +98,22 @@
                 <span>{{ menu.menu_name }}</span>
                 <p>{{ menu.description }}</p>
                 <p>Price: {{menu.price}} FCFA</p>
-                
               </div>
               
-              <form action="/menu/add_to_cart/{{menu.menu_id}}" method="post">
+              <form class="add-to-cart-form" action="/menu/add_to_cart/{{menu.menu_id}}" method="post">
                 <input type="hidden" name="_method" value="POST" />
                 
-                <button class="button" type="submit">
-                Add order
+                <button class="button">
+                  Add order
                   <svg class="cartIcon" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
-                 </button>
-                </form>
-              
+                </button>
+              </form>
+
+              <div class="message" style="display: none;"></div>
+            </div>
+              {% endfor %}
             </div>
           </div>
-        </div>
-
-{% endfor %}
 
       </div>
     </div>
@@ -133,10 +134,45 @@
         document.getElementById("output-area").textContent = value;
       }
     </script>
+    <script>
+      document.querySelectorAll('.add-to-cart-form').forEach(form => {
+          form.addEventListener('submit', function(event) {
+              event.preventDefault(); // Prevent the form from submitting the traditional way
+  
+              const formData = new FormData(form);
+  
+              fetch(form.action, {
+                  method: form.method,
+                  body: formData,
+                  headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                  }
+              })
+              .then(response => response.json())
+              .then(data => {
+                  const messageDiv = form.nextElementSibling;
+                  if (messageDiv) {
+                    messageDiv.textContent = data.message;
+                    messageDiv.style.display = 'block'; // Show the message
+    
+                    // Hide the message after 3 seconds
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 3000);
+                  }
+              })
+              .catch(error => console.error('Error:', error));
+          });
+      });
+  </script>
+  
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
       integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
       crossorigin="anonymous"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.boostrapcdn.com/boostrap/4.5.2/js/boostrap.min.js"></script>
   </body>
 </html>

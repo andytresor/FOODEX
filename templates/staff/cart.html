@@ -43,7 +43,7 @@
                 <li>
                   <a href="/menu"
                     ><i class="icon ph-bold ph-calendar-blank"></i
-                    ><span class="text">Menus</span></a
+                    ><span class="text">Menus ( {{ cart_count }} )</span></a
                   >
                 </li>
               </ul>
@@ -86,7 +86,7 @@
           <h2 class="cart-title">All Commands</h2>
           <div class="cart-content">
             {% for order in orders %}
-            <form action="/command/create_command" method="post">
+            
                 <div class="cart-box">
               <!-- <img src="static/imgs/{{ order.menu.img_name }}" alt="" class="cart-img"> -->
             <img src="{{ url_for('static', filename='imgs/' + order.menu.img_name) }}" class="cart-img"/>
@@ -96,12 +96,15 @@
                         <div class="cart-price">{{ order.menu.price }} FCFA</div>
                         <input type="number" value="1" class="cart-quantity" name="qty_{{ order.order_id }}" required="">
                     </div>
-                    
+                    <form action="/order/delete/{{order.order_id}}" method="post">
+                      <input type="hidden" name="_method" value="DELETE" class="cart_btn" />
+                      <button>Delete</button>
+                    </form>
                     
                     </div>
                     {% endfor %}
                     <button type="submit" class="btn-buy">Order Now</button>
-              </form>
+              
                 <div class="total">
                    <div class="total-title">Total</div>
                    <div class="total-price">0 FCFA</div>
