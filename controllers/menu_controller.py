@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request, redirect, session# type:ignore
+from flask import jsonify, render_template, request, Response, redirect, session# type:ignore
 from config import db
 from models.menu import Menu
 from models.order import Order
@@ -44,17 +44,17 @@ def add_to_cart(menu_id):
 def newMenu():
     form = request.form
     img = request.files['img']
-    img.save(img.filename)
+    # img.save(img.filename)
     menu_name = form['menu_name']
     price = form['price']
     description = form['description']
 
     if not img:
-        return 'no pic upload' 
+        return ({"error: No Picture Uploaded"}, 400) 
     filename = secure_filename(img.filename)
     mimetype = img.mimetype
 
-    menus = Menu(menu_name=menu_name, price=price, description=description, img=img, img_name=filename, mimetype=mimetype)
+    menus = Menu(menu_name=menu_name, price=price, description=description, img=img.read(), img_name=filename, mimetype=mimetype)
     db.session.add(menus)
     db.session.commit()
 
