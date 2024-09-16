@@ -9,7 +9,8 @@ class Commands(db.Model):
     total_qty = db.Column(db.Integer, nullable = False)
     total_price = db.Column(db.Integer, nullable = False)
     items = db.Column(JSON, nullable=False) 
-    
+    order_id = db.Column(db.Integer, db.ForeignKey('order.order_id'), nullable=False)
+    order = db.relationship('Order', backref='order', lazy=True)
     created_at = db.Column(db.DateTime(timezone = True), default = func.now())
     
     

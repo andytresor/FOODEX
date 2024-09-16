@@ -4,7 +4,6 @@ from sqlalchemy.sql import func # type: ignore
 class Menu(db.Model):
     menu_id = db.Column(db.Integer, primary_key = True)
     img = db.Column(db.Text, unique=True, nullable = False)
-    img_name = db.Column(db.Text, nullable = False)
     mimetype = db.Column(db.Text, nullable = False)
     filename = db.Column(db.String(50), nullable=False)
     menu_name = db.Column(db.String(100), nullable = False)

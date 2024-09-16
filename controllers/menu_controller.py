@@ -43,18 +43,18 @@ def add_to_cart(menu_id):
 
 def newMenu():
     form = request.form
-    img = request.files['img']
-    # img.save(img.filename)
+    file = request.files['file']
+    file.save(file.filename)
     menu_name = form['menu_name']
     price = form['price']
     description = form['description']
 
-    if not img:
+    if not file:
         return ({"error: No Picture Uploaded"}, 400) 
-    filename = secure_filename(img.filename)
-    mimetype = img.mimetype
+    filename = secure_filename(file.filename)
+    mimetype = file.mimetype
 
-    menus = Menu(menu_name=menu_name, price=price, description=description, img=img.read(), img_name=filename, mimetype=mimetype)
+    menus = Menu(menu_name=menu_name, price=price, description=description, img=file, filename=filename, mimetype=mimetype)
     db.session.add(menus)
     db.session.commit()
 
