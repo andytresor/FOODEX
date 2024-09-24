@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate # type: ignore
 from config import db
+import os
 
 from routes.web_route import web
 from routes.menu_route import menu
@@ -12,6 +13,11 @@ from routes.command_route import command
 from routes.auth_route import auth
 
 app = Flask(__name__)
+
+upload_folder = 'static/uploads'
+os.makedirs(upload_folder, exist_ok=True)
+
+app.config['upload_folder'] = upload_folder
 
 app.config.from_object('config')
 db.init_app(app)

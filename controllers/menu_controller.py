@@ -1,4 +1,5 @@
-from flask import jsonify, render_template, request, Response, redirect, session# type:ignore
+import os
+from flask import app, jsonify, render_template, request, Response, redirect, session# type:ignore
 from config import db
 from models.menu import Menu
 from models.order import Order
@@ -44,7 +45,6 @@ def add_to_cart(menu_id):
 def newMenu():
     form = request.form
     file = request.files['file']
-    file.save(file.filename)
     menu_name = form['menu_name']
     price = form['price']
     description = form['description']
@@ -52,6 +52,7 @@ def newMenu():
     if not file:
         return ({"error: No Picture Uploaded"}, 400) 
     filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['upload_folder'], filename))
     mimetype = file.mimetype
 
     menus = Menu(menu_name=menu_name, price=price, description=description, img=file, filename=filename, mimetype=mimetype)
